@@ -1,0 +1,114 @@
+
+public interface MyShapePosition extends MyPoint{
+	public MyRectangle getMyBoundingBox();
+	public static boolean doOverlap(MyShape shape1, MyShape shape2) {
+		
+		double heightOfShape1=shape1.getMyBoundingBox().getHeight();
+		double widthOfShape1=shape1.getMyBoundingBox().getWidth();
+		double heightOfShape2=shape2.getMyBoundingBox().getHeight();
+		double widthOfShape2=shape2.getMyBoundingBox().getWidth();
+		
+		double[] points = MyPoint.getPoint();
+		
+		int[] shape1corner1, shape1corner2, shape1corner3, shape1corner4, shape2corner1, shape2corner2, shape2corner3, shape2corner4;
+		
+		shape1corner1= new int[2];
+		shape1corner2= new int[2];
+		shape1corner3= new int[2];
+		shape1corner4= new int[2];
+		shape2corner1= new int[2];
+		shape2corner2= new int[2];
+		shape2corner3= new int[2];
+		shape2corner4= new int[2];
+		
+		shape1corner1[0]= (int)points[0];
+		shape1corner1[1]= (int)points[0];
+		shape1corner2[0]= (int)(points[0]+widthOfShape2);
+		shape1corner2[1]= (int)(points[0]);
+		
+		shape1corner3[0]= (int)(points[0]+widthOfShape2);
+		shape1corner3[1]= (int)(points[0]+heightOfShape2);
+		shape1corner4[0]= (int)(points[0]);
+		shape1corner4[1]= (int)(points[0]+widthOfShape2);
+		
+		shape2corner1[0]= (int)(points[0]);
+		shape2corner1[1]= (int)(points[0]);
+		shape2corner2[0]= (int)(points[0]+widthOfShape2);
+		shape2corner2[1]= (int)(points[0]);
+		
+		shape2corner3[0]= (int)(points[0]+widthOfShape2);
+		shape2corner3[1]= (int)(points[0]+heightOfShape2);
+		shape2corner4[0]= (int)(points[0]);
+		shape2corner4[1]= (int)(points[0]+widthOfShape2);
+		
+		boolean flag = false;
+		//corner1->2
+		for(int i=shape2corner1[0];i<=shape2corner2[0];i++) {
+			if(onSegment(shape1corner1[0],shape1corner1[1],i,shape2corner1[1],shape1corner2[0],shape1corner2[1])) {
+				flag= true;
+			}
+			else if(onSegment(shape1corner2[0],shape1corner2[1],i,shape2corner1[1],shape1corner3[0],shape1corner3[1])) {
+				flag= true;
+			}
+			else if(onSegment(shape1corner3[0],shape1corner3[1],i,shape2corner1[1],shape1corner4[0],shape1corner4[1])) {
+				flag= true;
+			}
+			else if(onSegment(shape1corner4[0],shape1corner4[1],i,shape2corner1[1],shape1corner1[0],shape1corner1[1])) {
+				flag= true;;
+			}
+		}	
+		
+		for(int i=shape2corner2[1];i<=shape2corner3[1];i++) {
+			if(onSegment(shape1corner1[0],shape1corner1[1],shape2corner2[0],i,shape1corner2[0],shape1corner2[1])) {
+				flag= true;
+			}
+			else if(onSegment(shape1corner2[0],shape1corner2[1],shape2corner2[0],i,shape1corner3[0],shape1corner3[1])) {
+				flag= true;
+			}
+			else if(onSegment(shape1corner3[0],shape1corner3[1],shape2corner2[0],i,shape1corner4[0],shape1corner4[1])) {
+				flag= true;
+			}
+			else if(onSegment(shape1corner4[0],shape1corner4[1],shape2corner2[0],i,shape1corner1[0],shape1corner1[1])) {
+				flag= true;
+			}
+		}
+		
+		for(int i=shape2corner3[0];i<=shape2corner4[0];i++) {
+			if(onSegment(shape1corner1[0],shape1corner1[1],i,shape2corner3[1],shape1corner2[0],shape1corner2[1])) {
+				flag= true;
+			}
+			else if(onSegment(shape1corner2[0],shape1corner2[1],i,shape2corner3[1],shape1corner3[0],shape1corner3[1])) {
+				flag= true;
+			}
+			else if(onSegment(shape1corner3[0],shape1corner3[1],i,shape2corner3[1],shape1corner4[0],shape1corner4[1])) {
+				flag= true;
+			}
+			else if(onSegment(shape1corner4[0],shape1corner4[1],i,shape2corner3[1],shape1corner1[0],shape1corner1[1])) {
+				flag= true;
+			}
+		}
+		
+		for(int i=shape2corner4[1];i<=shape2corner1[1];i++) {
+			if(onSegment(shape1corner1[0],shape1corner1[1],shape2corner4[0],i,shape1corner2[0],shape1corner2[1])) {
+				flag= true;
+			}
+			else if(onSegment(shape1corner2[0],shape1corner2[1],shape2corner4[0],i,shape1corner3[0],shape1corner3[1])) {
+				flag= true;
+			}
+			else if(onSegment(shape1corner3[0],shape1corner3[1],shape2corner4[0],i,shape1corner4[0],shape1corner4[1])) {
+				flag= true;
+			}
+			else if(onSegment(shape1corner4[0],shape1corner4[1],shape2corner4[0],i,shape1corner1[0],shape1corner1[1])) {
+				flag= true;
+			}
+		}
+		return flag;
+	}
+	static boolean onSegment(int p1,int p2,int q1,int q2,int r1 , int r2) 
+	{ 
+	    if (q1 <= Math.max(p1, r1) && q1 >= Math.min(p1, r1) && 
+	        q2 <= Math.max(p2, r2) && q2 >= Math.min(p2, r2)) return true; 
+	  
+	    return false; 
+	}
+}

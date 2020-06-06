@@ -1,0 +1,147 @@
+/**
+ * @author Nahin Imtiaz
+ *		email: nimtiaz000@citymail.cuny.edu
+ *		CCNY ID : 23556198
+ *
+ *This class uses JavaFX graphics and calculates the n most frequent alphabet characters in “Alice's Adventures in Wonderland” by Lewis Carroll (file Alice in Wonderland.txt) and their probabilities. The HistogramAlphaBet class utilizes a map collection for statistical calculations and the drawing canvas above to draw a pie chart of the probabilities. 
+ */
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import javafx.application.Application;
+
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class HistogramAlphaBet extends Application{
+	
+	public static int[] histogram;
+	public static char[] character;
+	public static double[] probabilityOfevents;
+	//Creating label , textfield and button for GUI
+	Label event = new Label("Number of Events n: ");
+	TextField input = new TextField();
+	Button Btn = new Button("Show Pie Chart");
+	
+	public static void main(String []args) throws IllegalArgumentException, IOException {
+		//Opening the file
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream("Alice In Wonderland.txt");
+		}catch(Exception e) {
+			return;
+		}
+		InputStreamReader inStream = new InputStreamReader(fis);
+		BufferedReader reader = new BufferedReader(inStream);
+			
+		String text = "";
+		//Reading the file line by line
+		String data =reader.readLine();
+		//While loop to go over every line of the file		
+		while(data!=null ) {
+			//replaces all special characters and whitespaces 
+			data = data.replaceAll("[^a-zA-Z]*", "").toLowerCase();
+			//saving the data into text string
+	        text+=data;
+	        //goes to the next line
+			data=reader.readLine();
+		}
+		//creates an array of frequency of each event and an array of characters
+		histogram = new int[26];
+		character = new char[26];
+		
+		int cumulativeFrequency = 0;
+		int i=0;
+		// goes over 'text' string and finds the frequency of each alphabet
+		for(char c='a';c<='z';c++) {
+			int frequency = 0;
+			for(int j=0;j<text.length();j++) {
+				if(c==text.charAt(j)) {
+					frequency++;
+				}
+			}
+			histogram [i]=frequency;
+			//saves the character current character
+			character[i]=c;
+			i++;
+			cumulativeFrequency+=frequency;	
+		}
+		// An array of probabilty for each character
+		probabilityOfevents =new double[26];
+		//calculates the probability of each characters and parses them to 4 digit decimal	
+		for(int j=0;j<26;j++) {
+			Double ans= ((double)histogram[j]/cumulativeFrequency);
+			probabilityOfevents[j]=Double.parseDouble(String.format("%.4f",ans));
+		}
+		// this block sorts the two array, his in descending order
+		for(int k=0;k<26;k++) {
+			for(int j=k+1;j<26;j++) {
+				if(probabilityOfevents[j]>probabilityOfevents[k]) {
+					//This sorts the probabilityOfevents array
+					double temp=probabilityOfevents[k];
+					probabilityOfevents[k]=probabilityOfevents[j];
+					probabilityOfevents[j]=temp;
+					//this sorts the character array
+					char temp1=character[k];
+					character[k]=character[j];
+					character[j]=temp1;
+				}
+			}
+		}
+		launch(args);
+	 }
+	 public void start(Stage primaryStage) throws Exception {
+		//creating a VBox pane	
+		VBox pane1 = new VBox();
+		//setting the action for our button 'show pie chart'
+		Btn.setOnAction(e -> {
+			//creating a canvas
+			Canvas cv = addCanvas(800,400,Integer.parseInt(input.getText() ));
+			// creating second pane 
+			Pane pane2 = new Pane();
+			//adding the canvas to the pane
+			pane2.getChildren().add(cv);
+			//setting the height and width of the pane2 according to pane 1
+			pane2.prefWidthProperty().bind(pane1.widthProperty());
+			pane2.prefHeightProperty().bind(pane1.heightProperty());
+			//adding the pane2 to pane1
+			pane1.getChildren().add(pane2);
+        });
+		//adding the labels and buttons in pane1
+		pane1.getChildren().addAll(event,input,Btn);
+		//Creating a scene and showing the display
+		Scene sc =new Scene(pane1,800,400,MyColor.WHITE.getColor());
+		primaryStage.setScene(sc);
+		primaryStage.setTitle("MyPieChart of Alphabets ");
+		primaryStage.show();
+	}
+	/**
+	 * this method creates a canvas with width and height and n events
+	 * @param w
+	 * this is the width of the canvas
+	 * @param h
+	 * this is the height of the canvas
+	 * @param event
+	 * this is the n amount of events with most frequency 
+	 * @return
+	 */
+	public Canvas addCanvas(int w, int h, int event) {
+		Canvas cv= new Canvas(w,h); 
+		GraphicsContext gc = cv.getGraphicsContext2D();
+		//creating an object of MyPieChart and drawing the PieChart
+		MyPieChart pie = new MyPieChart(event,this.character,this.probabilityOfevents);
+		pie.draw(gc, w, h);
+
+		return cv;
+	}
+}

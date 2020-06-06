@@ -1,0 +1,29 @@
+import javafx.scene.canvas.GraphicsContext;
+
+public class MyOval extends MyShape {
+	double height;
+	double width;
+	MyOval(int height, int width, MyColor color) {
+		super(color);
+		this.height=height;
+		this.width=width;
+	}
+	public double getPerimeter() {
+		return 2*Math.PI*(Math.sqrt((Math.pow(height/2, 2)+Math.pow(width/2, 2))/2));
+	}
+	public double getArea() {
+		return height*width*Math.PI;
+	}
+	@Override
+	public String toString() {
+		return String.format(this.width+""+this.height+""+getPerimeter()+""+getArea());
+	}
+
+	@Override
+	public void draw(GraphicsContext gc) {
+		gc.setFill(this.color.getColor());
+		gc.fillOval(getX(), getY(), width, height);
+		
+	}
+
+}

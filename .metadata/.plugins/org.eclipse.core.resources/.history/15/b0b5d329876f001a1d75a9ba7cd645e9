@@ -1,0 +1,17 @@
+
+public interface MyShapePosition extends MyPoint{
+	public MyRectangle getMyBoundingBox();
+	public static boolean doOverlap(MyShape shape1, MyShape shape2) {
+		double heightOfShape1=shape1.getMyBoundingBox().getHeight();
+		double widthOfShape1=shape1.getMyBoundingBox().getWidth();
+		double heightOfShape2=shape2.getMyBoundingBox().getHeight();
+		double widthOfShape12=shape2.getMyBoundingBox().getWidth();
+		double[] pointsOfShape1 = shape1.
+		
+		if(shape1.getMyBoundingBox()shape1.) {
+			return true;
+		}
+		else return false;
+		
+	}
+}

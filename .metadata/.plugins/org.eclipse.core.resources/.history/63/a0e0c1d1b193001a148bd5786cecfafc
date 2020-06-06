@@ -1,0 +1,166 @@
+import java.sql.*;
+public class DatabaseConnector {
+
+	public static void main(String[] args) {
+		try {
+			Connection conn = null;
+			conn= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/Student", "root", "124578369nN");
+			//PreparedStatement myStat = conn.prepareStatement("select * from Students");
+			PreparedStatement myStat1 = conn.prepareStatement("CREATE TABLE `Students` (\r\n" + 
+					"  `studentID` int unsigned NOT NULL,\r\n" + 
+					"  `firstName` varchar(45) NOT NULL,\r\n" + 
+					"  `lastName` varchar(45) NOT NULL,\r\n" + 
+					"  `email` varchar(45) NOT NULL,\r\n" + 
+					"  `sex` varchar(45) NOT NULL,\r\n" + 
+					"  PRIMARY KEY (`studentID`)\r\n" + 
+					") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
+			
+			boolean myRs1 =myStat1.execute();
+
+			PreparedStatement myStat2 = conn.prepareStatement("CREATE TABLE `Courses` (\r\n" + 
+					"  `courseID` varchar(45) NOT NULL,\r\n" + 
+					"  `courseTitle` varchar(255) NOT NULL,\r\n" + 
+					"  `department` varchar(255) NOT NULL,\r\n" + 
+					"  PRIMARY KEY (`courseID`)\r\n" + 
+					") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
+			
+			boolean myRs2 =myStat2.execute();
+			
+			//while(myRs.next()) {
+			//	System.out.println(myRs.getString("lastName")+" , "+myRs.getString("firstName"));
+			//}
+			PreparedStatement myStat3 = conn.prepareStatement("CREATE TABLE `Classes` (\r\n" + 
+					"  `courseID` varchar(45) NOT NULL,\r\n" + 
+					"  `studentID` int unsigned NOT NULL,\r\n" + 
+					"  `section` varchar(45) NOT NULL,\r\n" + 
+					"  `year` varchar(45) NOT NULL,\r\n" + 
+					"  `semester` varchar(45) NOT NULL,\r\n" + 
+					"  `GPA` varchar(45) NOT NULL,\r\n" + 
+					"  PRIMARY KEY (`courseID`,`studentID`,`section`),\r\n" + 
+					"  KEY `studentID_idx` (`section`),\r\n" + 
+					"  KEY `studentID_idx1` (`studentID`),\r\n" + 
+					"  CONSTRAINT `courseID` FOREIGN KEY (`courseID`) REFERENCES `Courses` (`courseID`),\r\n" + 
+					"  CONSTRAINT `studentID` FOREIGN KEY (`studentID`) REFERENCES `Students` (`studentID`)\r\n" + 
+					") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
+			
+			boolean myRs3 =myStat3.execute();
+			
+			String[] str = new String[30];
+			str[0]="insert into Students (studentID, firstName,lastName,email,sex) values ('01','Nahin','Imtiaz','daddb@gmail.com','M')";
+			str[1]="insert into Students (studentID, firstName,lastName,email,sex) values ('02','David','Beckham','db12@gmail.com','M')";
+			str[2]="insert into Students (studentID, firstName,lastName,email,sex) values ('03','Liam','Isaiah','db23@gmail.com','M')";
+			str[3]="insert into Students (studentID, firstName,lastName,email,sex) values ('04','Noah','Josiah','db211@gmail.com','M')";
+			str[4]="insert into Students (studentID, firstName,lastName,email,sex) values ('05','William','Hudson','d12b2@gmail.com','M')";
+			str[5]="insert into Students (studentID, firstName,lastName,email,sex) values ('06','James','Christian','d123b@gmail.com','M')";
+			str[6]="insert into Students (studentID, firstName,lastName,email,sex) values ('07','Oliver','Hunter','db123@gmail.com','M')";
+			str[7]="insert into Students (studentID, firstName,lastName,email,sex) values ('08','Benjamin','Connor','d32ewb@gmail.com','M')";
+			str[8]="insert into Students (studentID, firstName,lastName,email,sex) values ('09','Elijah','Eli','defwb@gmail.com','M')";
+			str[9]="insert into Students (studentID, firstName,lastName,email,sex) values ('10','Lucas','Ezra','dbdffd@gmail.com','M')";
+			str[10]="insert into Students (studentID, firstName,lastName,email,sex) values ('11','Mason','Aaron','dbhyj@gmail.com','M')";
+			str[11]="insert into Students (studentID, firstName,lastName,email,sex) values ('12','Logan','Landon','dbht@gmail.com','M')";
+			str[12]="insert into Students (studentID, firstName,lastName,email,sex) values ('13','Alexander','Adrian','dbf44@gmail.com','M')";
+			str[13]="insert into Students (studentID, firstName,lastName,email,sex) values ('14','Ethan','Jonathan','dbtfd@gmail.com','M')";
+			str[14]="insert into Students (studentID, firstName,lastName,email,sex) values ('15','Jacob','Nolan','dbvdvd@gmail.com','M')";
+			str[15]="insert into Students (studentID, firstName,lastName,email,sex) values ('16','Michael','Jeremiah','dbvdxc@gmail.com','M')";
+			str[16]="insert into Students (studentID, firstName,lastName,email,sex) values ('17','Daniel','Easton','dbbbhk@gmail.com','F')";
+			str[17]="insert into Students (studentID, firstName,lastName,email,sex) values ('18','Emma','Lucy','dbiutl@gmail.com','F')";
+			str[18]="insert into Students (studentID, firstName,lastName,email,sex) values ('19','Olivia','Paisley','dbhgd@gmail.com','F')";
+			str[19]="insert into Students (studentID, firstName,lastName,email,sex) values ('20','Ava','Anna','ddhjb@gmail.com','F')";
+			str[20]="insert into Students (studentID, firstName,lastName,email,sex) values ('21','Isabella','Caroline','dbdjghj@gmail.com','F')";
+			str[21]="insert into Students (studentID, firstName,lastName,email,sex) values ('22','Sophia','Nova','dcbb@gmail.com','F')";
+			str[22]="insert into Students (studentID, firstName,lastName,email,sex) values ('23','Charlotte','Genesis','db234@gmail.com','F')";
+			str[23]="insert into Students (studentID, firstName,lastName,email,sex) values ('24','Mia','Kennedy','db45@gmail.com','F')";
+			str[24]="insert into Students (studentID, firstName,lastName,email,sex) values ('25','Amelia','Maya','dbtr@gmail.com','F')";
+			str[25]="insert into Students (studentID, firstName,lastName,email,sex) values ('26','Harper','Willow','dbrg@gmail.com','F')";
+			str[26]="insert into Students (studentID, firstName,lastName,email,sex) values ('27','Evelyn','Kinsley','fghdb@gmail.com','F')";
+			str[27]="insert into Students (studentID, firstName,lastName,email,sex) values ('28','Abigail','Naomi','fhghdb@gmail.com','F')";
+			str[28]="insert into Students (studentID, firstName,lastName,email,sex) values ('29','Elizabeth','Beckham','dfghb@gmail.com','F')";
+			str[29]="insert into Students (studentID, firstName,lastName,email,sex) values ('30','Mila','Aaliyah','dbvnn@gmail.com','F')";
+			
+			for(int i=0;i<str.length;i++) {
+				PreparedStatement myStat = conn.prepareStatement(str[i]);
+				int myRs4 =myStat.executeUpdate();
+			}
+			
+			String[] str2 = new String[10];
+			str2[0]="insert into Courses (courseID, courseTitle,department) values ('CSC 10300','Introduction To Programming And Computer Science','Department of Computer Science')";
+			str2[1]="insert into Courses (courseID, courseTitle,department) values ('CSC 11300','Programming Language','Department of Computer Science')";
+			str2[2]="insert into Courses (courseID, courseTitle,department) values ('CSC 10400','Discrete Mathematical Structures','Department of Computer Science')";
+			str2[3]="insert into Courses (courseID, courseTitle,department) values ('CSC 21100','Fundamentals Of Computer Systems','Department of Computer Science')";
+			str2[4]="insert into Courses (courseID, courseTitle,department) values ('CSC 21200','Data Structures','Department of Computer Science')";
+			str2[5]="insert into Courses (courseID, courseTitle,department) values ('CSC 21700','Probability And Statistics For Computer Science','Department of Computer Science')";
+			str2[6]="insert into Courses (courseID, courseTitle,department) values ('CSC 22000','Algorithms','Department of Computer Science')";
+			str2[7]="insert into Courses (courseID, courseTitle,department) values ('CSC 22100','Software Design Laboratory','Department of Computer Science')";
+			str2[8]="insert into Courses (courseID, courseTitle,department) values ('CSC 30100','Numerical Issues In Scientific Programming','Department of Computer Science')";
+			str2[9]="insert into Courses (courseID, courseTitle,department) values ('CSC 30400','Introduction To Theoretical Computer Science','Department of Computer Science')";
+			
+			for(int i=0;i<str2.length;i++) {
+				PreparedStatement myStat = conn.prepareStatement(str2[i]);
+				int myRs5 =myStat.executeUpdate();
+			}
+			
+			String[] str3 = new String[50];
+			str3[0]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','01','A','Spring','2020','A')";
+			str3[1]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','02','A','Spring','2020','A')";
+			str3[2]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','03','A','Spring','2020','A')";
+			str3[3]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','04','A','Spring','2020','A')";
+			str3[4]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','05','A','Spring','2020','A')";
+			str3[5]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','06','A','Spring','2020','A')";
+			str3[6]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','07','A','Spring','2020','A')";
+			str3[7]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','08','A','Spring','2020','B')";
+			str3[8]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','09','A','Spring','2020','B')";
+			str3[9]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','10','A','Spring','2020','B')";
+			str3[10]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','11','B','Spring','2020','B')";
+			str3[11]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','12','B','Spring','2020','B')";
+			str3[12]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','13','B','Spring','2020','B')";
+			str3[13]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','14','B','Spring','2020','B')";
+			str3[14]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','15','B','Spring','2020','B')";
+			str3[15]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','16','B','Spring','2020','B')";
+			str3[16]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','17','B','Spring','2020','B')";
+			str3[17]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','18','B','Spring','2020','B')";
+			str3[18]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','19','B','Spring','2020','C')";
+			str3[19]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','20','B','Spring','2020','C')";
+			str3[20]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','21','C','Spring','2020','C')";
+			str3[21]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','22','C','Spring','2020','C')";
+			str3[22]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','23','C','Spring','2020','C')";
+			str3[23]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','24','C','Spring','2020','C')";
+			str3[24]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','25','C','Spring','2020','C')";
+			str3[25]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','26','C','Spring','2020','D')";
+			str3[26]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','27','C','Spring','2020','D')";
+			str3[27]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','28','C','Spring','2020','D')";
+			str3[28]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','29','C','Spring','2020','F')";
+			str3[29]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','30','C','Spring','2020','F')";
+			str3[30]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 11300','01','A','Fall','2019','A')";
+			str3[31]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 10400','01','B','Fall','2019','A')";
+			str3[32]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 11300','01','C','Fall','2019','A')";
+			str3[33]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 21100','01','D','Fall','2019','A')";
+			str3[34]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 21200','01','E','Spring','2020','A')";
+			str3[35]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 21700','01','F','Spring','2020','A')";
+			str3[36]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22000','01','G','Spring','2020','A')";
+			str3[37]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 30100','01','H','Spring','2020','A')";
+			str3[38]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 30400','01','I','Spring','2020','A')";
+			str3[39]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','01','G','Fall','2019','A')";
+			str3[40]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','02','G','Fall','2019','A')";
+			str3[41]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','03','G','Fall','2019','B')";
+			str3[42]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','04','G','Fall','2019','B')";
+			str3[43]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','05','G','Fall','2019','B')";
+			str3[44]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','06','H','Fall','2019','C')";
+			str3[45]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','07','H','Fall','2019','C')";
+			str3[46]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','08','H','Fall','2019','C')";
+			str3[47]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','09','H','Fall','2019','D')";
+			str3[48]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','10','H','Fall','2019','D')";
+			str3[49]="insert into Classes (courseID, studentID,section,year,semester,GPA) values ('CSC 22100','11','H','Fall','2019','F')";
+			
+			for(int i=0;i<str3.length;i++) {
+				PreparedStatement myStat = conn.prepareStatement(str3[i]);
+				int myRs6 =myStat.executeUpdate();
+			}
+			
+			conn.close();
+		} catch (Exception ex) {
+			System.out.println("Exception: " + ex.getMessage());
+			ex.printStackTrace();
+		}
+	}
+
+}

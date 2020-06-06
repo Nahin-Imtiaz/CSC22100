@@ -1,0 +1,43 @@
+
+public interface MyShapePosition extends MyPoint{
+	public MyRectangle getMyBoundingBox();
+	public static boolean doOverlap(MyShape shape1, MyShape shape2) {
+		
+		double heightOfShape1=shape1.getMyBoundingBox().getHeight();
+		double widthOfShape1=shape1.getMyBoundingBox().getWidth();
+		double heightOfShape2=shape2.getMyBoundingBox().getHeight();
+		double widthOfShape2=shape2.getMyBoundingBox().getWidth();
+		double[] points = MyPoint.getPoint();
+		
+		double[] shape1corner1, shape1corner2, shape1corner3, shape1corner4, shape2corner1, shape2corner2, shape2corner3, shape2corner4;
+		
+		shape1corner1[0]= points[0];
+		shape1corner1[1]= points[0];
+		shape1corner2[0]= points[0]+widthOfShape2;
+		shape1corner2[1]= points[0];
+		
+		shape1corner3[0]= points[0]+widthOfShape2;
+		shape1corner3[1]= points[0]+heightOfShape2;
+		shape1corner4[0]= points[0];
+		shape1corner4[1]= points[0]+widthOfShape2;
+		
+		shape2corner1[0]= points[0];
+		shape2corner1[1]= points[0];
+		shape2corner2[0]= points[0]+widthOfShape2;
+		shape2corner2[1]= points[0];
+		
+		shape2corner3[0]= points[0]+widthOfShape2;
+		shape2corner3[1]= points[0]+heightOfShape2;
+		shape2corner4[0]= points[0];
+		shape2corner4[1]= points[0]+widthOfShape2;
+		//for(int i= shape2corner1[0];i<shape2corner2[0];i++ ) {
+			if(between(1,shape1corner1[0],shape1corner2[0])) {
+				return true;
+			}
+			else return false;
+		//}
+	}
+	public static boolean between(int i, int minValueInclusive, int maxValueInclusive) {
+	    return (i >= minValueInclusive && i <= maxValueInclusive);
+	}
+}

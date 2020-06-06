@@ -1,0 +1,49 @@
+import javafx.scene.canvas.GraphicsContext;
+
+public class MyRectangle extends MyShape {
+	double height;
+	double width;
+	double area;
+	double perimeter;
+
+	MyRectangle(int height, int width, MyColor color) {
+		super(color);
+		this.height=height;
+		this.width=width;
+	}
+	public double getHeight() {
+		return height;
+	}
+	public void setHeight(double height) {
+		this.height = height;
+	}
+	public double getWidth() {
+		return width;
+	}
+	public void setWidth(double width) {
+		this.width = width;
+	}
+	public double getPerimeter() {
+		return this.perimeter;
+	}
+	public double getArea() {
+		return this.area;
+	}
+	public void setPerimeter() {
+		this.perimeter= 2*(height+width);
+	}
+	public void setArea() {
+		this.area= height*width;
+	}
+	@Override
+	public String toString() {
+		return String.format(this.width+""+this.height+""+getPerimeter()+""+getArea());
+	}
+
+	@Override
+	public void draw(GraphicsContext gc) {
+		gc.setFill(this.color.getColor());
+		gc.fillRect(this.getX(), this.getY(), this.width, this.height);
+	}
+
+}

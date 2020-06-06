@@ -1,0 +1,8 @@
+
+public interface MyShapePosition extends MyPoint{
+	public MyRectangle getMyBoundingBox();
+	public static boolean doOverlap(MyShape shape1, MyShape shape2) {
+		return false;
+		
+	}
+}

@@ -1,0 +1,78 @@
+import javafx.scene.canvas.GraphicsContext;
+/**
+ * @author Nahin Imtiaz
+ *		email: nimtiaz000@citymail.cuny.edu
+ *		CCNY ID : 23556198
+ *
+ *Class MyLine inherits class MyShape. The MyLine object is a straight line defined by the endpoints (x1, y1) and (x2, y2). The MyLine object may be of any color. 
+ */
+public class MyLine extends MyShape{
+	int x1;
+	int x2;
+	int y1;
+	int y2;
+	/**
+	 * this constructor is used to create a MyLine Object with parameters
+	 * @param x1
+	 * this is the x coordinator of the beginning of line
+	 * @param y1
+	 * this is the y coordinator of the beginning of line
+	 * @param x2
+	 * this is the x coordinator of the end of line
+	 * @param y2
+	 * this is the y coordinator of the end of line
+	 * @param color
+	 * this is the color of the MyLine shape
+	 */
+	MyLine(int x1, int y1, int x2, int y2, MyColor color){
+		super(color);
+		this.x1=x1;
+		this.x2=x2;
+		this.y1=y1;
+		this.y2=y2;
+	}
+	/**
+	 * this method  returns the length of the MyLine object
+	 * @return double
+	 */
+	public double getLength () {
+		// equation for distance given two points
+		double d= Math.sqrt((x2-x1)^2+(y2-y1)^2);
+		return d;
+	}
+	/**
+	 * this method returns the angle (in degrees) of the MyLine object with the x-axis
+	 * @return double
+	 */
+	public double get_xAngle () {
+		//equations for slope and angle
+		double slope = (y2-y1)/(x2-x1);
+		double Angle= Math.atan(slope);
+		return Angle; 
+	}
+	/**
+	 * This method returns a string representation of the MyLine object: length and angle with the x-axis 
+	 */
+	@Override
+	public String toString() {
+		return String.format(getLength()+""+get_xAngle()+""+this.x1+""+this.x2);	
+	}
+	/**
+	 * this method  draws a MyLine object whose end points are (x1, y1) and (x2, y2)
+	 */
+	@Override
+	public void draw (GraphicsContext gc) {
+		//sets the width of line to 5
+		gc.setLineWidth(5);
+		gc.setFill(this.getColor().myColor);
+		gc.strokeLine(x1, y1, x2, y2);
+	}
+	@Override
+	public MyRectangle getMyBoundingBox() {
+		double height = Math.abs(y1-y2);
+		double width = Math.abs(x1-x2);
+		MyPoint.setPoint(x1,y1);
+		MyRectangle boundingBox = new MyRectangle(height,width,this.color);
+		return boundingBox;
+	}
+}

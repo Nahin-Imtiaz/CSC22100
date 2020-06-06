@@ -1,0 +1,17 @@
+import javafx.scene.canvas.GraphicsContext;
+
+public class MyRectangle extends MyShape {
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void draw(GraphicsContext gc) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

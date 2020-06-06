@@ -1,0 +1,21 @@
+
+public interface MyPoint {
+	
+	double[] point= new double[2];
+	public static double[] getPoint() {
+		return point;
+	}
+	public static void setPoint(double x,double y) {
+		point[0]=x;
+		point[1]=y;
+	}
+	public static void moveTo(double x,double y) {
+		point[0]=point[0]+(x-point[0]);
+		point[1]=point[1]+(y-point[1]);
+	}
+	public static double distanceTo(double x2,double y2) {
+	
+		double d= Math.sqrt(Math.pow((x2-point[0]),2)+Math.pow((y2-point[1]),2));
+		return d;
+	}
+}

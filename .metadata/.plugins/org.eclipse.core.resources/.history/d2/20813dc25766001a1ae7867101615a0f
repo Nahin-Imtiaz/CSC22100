@@ -1,0 +1,27 @@
+import javafx.scene.canvas.GraphicsContext;
+
+public class MyRectangle extends MyShape {
+
+	MyRectangle(MyColor color) {
+		super(color);
+		// TODO Auto-generated constructor stub
+	}
+
+	MyRectangle(int x, int y) {
+		super(x, y);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void draw(GraphicsContext gc) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

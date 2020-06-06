@@ -1,0 +1,54 @@
+import java.sql.*;
+public class DatabaseConnector {
+
+	public static void main(String[] args) {
+		try {
+			Connection conn = null;
+			conn= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/Student", "root", "124578369nN");
+			//PreparedStatement myStat = conn.prepareStatement("select * from Students");
+			PreparedStatement myStat1 = conn.prepareStatement("CREATE TABLE `Students` (\r\n" + 
+					"  `studentID` int unsigned NOT NULL,\r\n" + 
+					"  `firstName` varchar(45) NOT NULL,\r\n" + 
+					"  `lastName` varchar(45) NOT NULL,\r\n" + 
+					"  `email` varchar(45) NOT NULL,\r\n" + 
+					"  `sex` varchar(45) NOT NULL,\r\n" + 
+					"  PRIMARY KEY (`studentID`),\r\n" + 
+					"  UNIQUE KEY `studentID_UNIQUE` (`studentID`)\r\n" + 
+					") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
+			
+			boolean myRs1 =myStat1.execute();
+			System.out.println("Done");
+			PreparedStatement myStat2 = conn.prepareStatement("CREATE TABLE `Courses` (\r\n" + 
+					"  `courseID` varchar(45) NOT NULL,\r\n" + 
+					"  `courseTitle` varchar(255) NOT NULL,\r\n" + 
+					"  `department` varchar(255) NOT NULL,\r\n" + 
+					"  PRIMARY KEY (`courseID`),\r\n" + 
+					"  UNIQUE KEY `courseID_UNIQUE` (`courseID`)\r\n" + 
+					") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
+			
+			boolean myRs2 =myStat2.execute();
+			System.out.println("Done");
+			//while(myRs.next()) {
+			//	System.out.println(myRs.getString("lastName")+" , "+myRs.getString("firstName"));
+			//}
+		
+			PreparedStatement myStat3 = conn.prepareStatement("CREATE TABLE `Classes` (\r\n" + 
+					"  `courseID` varchar(255) NOT NULL,\r\n" + 
+					"  `studentID` int NOT NULL,\r\n" + 
+					"  `section` varchar(45) NOT NULL,\r\n" + 
+					"  `year` varchar(45) NOT NULL,\r\n" + 
+					"  `semseter` varchar(45) NOT NULL,\r\n" + 
+					"  `GPA` varchar(45) NOT NULL,\r\n" + 
+					"  PRIMARY KEY (`courseID`,`studentID`,`section`)\r\n" + 
+					") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
+			
+			boolean myRs3 =myStat3.execute();
+			System.out.println("Done");
+			
+		} catch (Exception ex) {
+			System.out.println("Exception: " + ex.getMessage());
+			ex.printStackTrace();
+		}
+	}
+
+}
